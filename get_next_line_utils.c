@@ -6,11 +6,13 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:41:23 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/09 14:22:30 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/10 12:59:18 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+#include <stdio.h>
 
 char	*ft_strchrcpy(const char *s, int c)
 {
@@ -23,6 +25,8 @@ char	*ft_strchrcpy(const char *s, int c)
 	ptr = (char *)s;
 	while (s[i] && s[i] != (char)c)
 		i++;
+	if (!s[i])
+		return ((char *)s);
 	i++;
 	while (s[i])
 	{
@@ -52,7 +56,7 @@ char	*ft_strdup(const char *s)
 	return (ptr);
 }
 
-char	*ft_strjoin_free(char const *s1, char const *s2)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*ptr;
 	size_t	len_of_s1;
@@ -76,7 +80,7 @@ char	*ft_strjoin_free(char const *s1, char const *s2)
 		j++;
 	}
 	ptr[(len_of_s1 + len_of_s2)] = '\0';
-	free((char *)s1);
+	free(s1);
 	return (ptr);
 }
 
@@ -85,7 +89,7 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	if (!str)
+	if (!str || !str[i])
 		return (0);
 	while (str && str[i])
 		i++;

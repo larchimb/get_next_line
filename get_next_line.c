@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:38:36 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/10 10:29:38 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/10 12:57:03 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*trim_to_the_line(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] != '\n')
+	while (str[i] && str[i] != '\n')
 		i++;
 	line = malloc(sizeof(char) * (i + 1 + 1));
 	if (!line)
@@ -59,11 +59,10 @@ char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*complete_line;
-	int			bytes_read;
+	static int			bytes_read = 1;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || bytes_read == 0)
 		return (NULL);
-	bytes_read = 0;
 	complete_line = ft_strdup(buffer);
 	if (check_if_endline(complete_line, bytes_read) == 1)
 	{
@@ -77,17 +76,20 @@ char	*get_next_line(int fd)
 		if (bytes_read < 0)
 		{
 			free(complete_line);
+			buffer[0] = '\0';
 			return (NULL);
 		}
 		if (bytes_read == 0)
-		{
-			free(complete_line);
-			return (NULL);
-		}
+			break ;
 		buffer[bytes_read] = '\0';
 		complete_line = ft_strjoin_free(complete_line, buffer);
 	}
 	complete_line = trim_to_the_line(complete_line);
+	if (*complete_line == '\0' && bytes_read == 0)
+	{
+		free(complete_line);
+		return (NULL);
+	}
 	ft_strchrcpy(buffer, '\n');
 	return (complete_line);
 }
