@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 14:58:26 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 14:58:37 by larchimb         ###   ########.fr       */
+/*   Created: 2025/12/05 14:38:36 by larchimb          #+#    #+#             */
+/*   Updated: 2025/12/11 15:57:27 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,48 +57,47 @@ static int	check_if_endline(char *str)
 	return (0);
 }
 
-static char	*fullfill_complete_line(int fd, char *complete_line, char *buffer)
+static char	*fill_line(int fd, char *line, char buffer[BUFFER_SIZE + 1])
 {
 	int	bytes_read;
 
-	while (check_if_endline(complete_line) == 0)
+	while (check_if_endline(line) == 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
-			free(complete_line);
+			free(line);
 			return (NULL);
 		}
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = '\0';
-		complete_line = ft_strjoin_free(complete_line, buffer);
+		line = ft_strjoin_free(line, buffer);
 	}
-	complete_line = trim_to_the_line(complete_line);
-	if (ft_strlen(complete_line) == 0 && bytes_read <= 0)
+	line = trim_to_the_line(line);
+	if (ft_strlen(line) == 0 && bytes_read <= 0)
 	{
-		free(complete_line);
+		free(line);
 		return (NULL);
 	}
-	return (complete_line);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*complete_line;
+	static char	buffer[1024][BUFFER_SIZE + 1];
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	complete_line = ft_strdup(buffer);
-	complete_line = fullfill_complete_line(fd, complete_line, buffer);
-	ft_strchrcpy(buffer, '\n');
-	return (complete_line);
+	line = ft_strdup(buffer[fd]);
+	line = fill_line(fd, line, buffer[fd]);
+	ft_strchrcpy(buffer[fd], '\n');
+	return (line);
 }
 /* #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 char	*get_next_line(int fd);
 

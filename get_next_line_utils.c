@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:41:23 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 14:48:59 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:21:45 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ char	*ft_strchrcpy(char *s, int c)
 		while (s[i])
 			s[j++] = s[i++];
 	}
-	while (j <= BUFFER_SIZE)
-		s[j++] = '\0';
+	s[j] = '\0';
 	return (s);
 }
 
