@@ -6,13 +6,11 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:41:23 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 13:49:57 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/11 14:01:48 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-#include <stdio.h>
 
 char	*ft_strchrcpy(char *s, int c)
 {
@@ -70,7 +68,10 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	j = 0;
 	ptr = malloc(sizeof(char) * (len_of_s1 + len_of_s2) + 1);
 	if (!ptr)
+	{
+		free(s1);
 		return (NULL);
+	}
 	while (s1[j])
 		ptr[i++] = s1[j++];
 	j = 0;

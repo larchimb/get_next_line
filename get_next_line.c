@@ -6,14 +6,12 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:38:36 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 13:50:35 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/11 14:21:48 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <unistd.h>
-
-#include <stdio.h>
 
 static char	*trim_to_the_line(char *str)
 {
@@ -59,23 +57,16 @@ static int	check_if_endline(char *str)
 	return (0);
 }
 
-char	*get_next_line(int fd)
+static char	*fullfill_complete_line(int fd, char *complete_line, char *buffer)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*complete_line;
 	int	bytes_read;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	complete_line = ft_strdup(buffer);
-	bytes_read = 1;
 	while (check_if_endline(complete_line) == 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
 			free(complete_line);
-			buffer[0] = 0;
 			return (NULL);
 		}
 		if (bytes_read == 0)
@@ -84,12 +75,24 @@ char	*get_next_line(int fd)
 		complete_line = ft_strjoin_free(complete_line, buffer);
 	}
 	complete_line = trim_to_the_line(complete_line);
-	ft_strchrcpy(buffer, '\n');
 	if (ft_strlen(complete_line) == 0 && bytes_read <= 0)
 	{
 		free(complete_line);
 		return (NULL);
 	}
+	return (complete_line);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*complete_line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	complete_line = ft_strdup(buffer);
+	complete_line = fullfill_complete_line(fd, complete_line, buffer);
+	ft_strchrcpy(buffer, '\n');
 	return (complete_line);
 }
 /* #include <fcntl.h>
