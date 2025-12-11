@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:38:36 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 12:37:32 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/11 13:50:35 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ char	*get_next_line(int fd)
 		complete_line = ft_strjoin_free(complete_line, buffer);
 	}
 	complete_line = trim_to_the_line(complete_line);
+	ft_strchrcpy(buffer, '\n');
 	if (ft_strlen(complete_line) == 0 && bytes_read <= 0)
 	{
 		free(complete_line);
 		return (NULL);
 	}
-	ft_strchrcpy(buffer, '\n');
 	return (complete_line);
 }
 /* #include <fcntl.h>

@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:41:23 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 12:31:09 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/11 13:49:57 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strchrcpy(char *s, int c)
 		while (s[i])
 			s[j++] = s[i++];
 	}
-	while (j < BUFFER_SIZE)
+	while (j <= BUFFER_SIZE)
 		s[j++] = '\0';
 	return (s);
 }
@@ -40,7 +40,8 @@ char	*ft_strdup(char *s)
 	int		i;
 
 	i = 0;
-
+	if (!s || !s[0])
+		return (NULL);
 	ptr = malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!ptr)
 		return (NULL);
@@ -61,6 +62,8 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	size_t	i;
 	size_t	j;
 
+	if (!s1)
+		return (ft_strdup(s2));
 	len_of_s1 = ft_strlen(s1);
 	len_of_s2 = ft_strlen(s2);
 	i = 0;
@@ -72,10 +75,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		ptr[i++] = s1[j++];
 	j = 0;
 	while (s2[j])
-	{
-		ptr[i + j] = s2[j];
-		j++;
-	}
+		ptr[i++] = s2[j++];
 	ptr[(len_of_s1 + len_of_s2)] = '\0';
 	free(s1);
 	return (ptr);
