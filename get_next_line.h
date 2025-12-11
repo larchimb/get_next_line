@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:08:37 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/10 11:40:01 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/10 14:39:39 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 char	*ft_strjoin_free(char *s1, char *s2);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *s);
-char	*ft_strchrcpy(const char *s, int c);
+char	*ft_strchrcpy(char *s, int c);
 char	*get_next_line(int fd);
 
 # ifndef BUFFER_SIZE

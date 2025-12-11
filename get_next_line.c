@@ -6,12 +6,14 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:38:36 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/10 12:57:03 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/11 12:20:11 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <unistd.h>
+
+#include <stdio.h>
 
 static char	*trim_to_the_line(char *str)
 {
@@ -19,15 +21,19 @@ static char	*trim_to_the_line(char *str)
 	int		i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
-	line = malloc(sizeof(char) * (i + 1 + 1));
+	if (str[i] == '\n')
+		i++;
+	line = malloc(sizeof(char) * (i + 1));
 	if (!line)
 	{
 		free(str);
 		return (NULL);
 	}
-	line[i + 1] = '\0';
+	line[i--] = '\0';
 	while (i >= 0)
 	{
 		line[i] = str[i];
@@ -59,11 +65,14 @@ char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*complete_line;
-	static int			bytes_read = 1;
+	int	bytes_read;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || bytes_read == 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	printf("%s", "Erreur 1");
 	complete_line = ft_strdup(buffer);
+	printf("%s", "Erreur 2");
+	bytes_read = 1;
 	if (check_if_endline(complete_line, bytes_read) == 1)
 	{
 		complete_line = trim_to_the_line(complete_line);
@@ -76,7 +85,7 @@ char	*get_next_line(int fd)
 		if (bytes_read < 0)
 		{
 			free(complete_line);
-			buffer[0] = '\0';
+			buffer[0] = 0;
 			return (NULL);
 		}
 		if (bytes_read == 0)
@@ -85,7 +94,7 @@ char	*get_next_line(int fd)
 		complete_line = ft_strjoin_free(complete_line, buffer);
 	}
 	complete_line = trim_to_the_line(complete_line);
-	if (*complete_line == '\0' && bytes_read == 0)
+	if (ft_strlen(complete_line) == 0 && bytes_read <= 0)
 	{
 		free(complete_line);
 		return (NULL);
