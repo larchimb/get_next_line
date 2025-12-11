@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:41:23 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 12:13:26 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/11 12:31:09 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@ char	*ft_strchrcpy(char *s, int c)
 	return (s);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	char	*ptr;
 	int		i;
 
 	i = 0;
-	if (!s)
-		return (NULL);
-	ptr = malloc(sizeof(const char) * ft_strlen(s) + 1);
+
+	ptr = malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!ptr)
 		return (NULL);
 	while (s[i])
@@ -68,10 +67,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	j = 0;
 	ptr = malloc(sizeof(char) * (len_of_s1 + len_of_s2) + 1);
 	if (!ptr)
-	{
-//		free(s1);
 		return (NULL);
-	}
 	while (s1[j])
 		ptr[i++] = s1[j++];
 	j = 0;

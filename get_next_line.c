@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:38:36 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 12:20:11 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/11 12:37:32 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*trim_to_the_line(char *str)
 	return (line);
 }
 
-static int	check_if_endline(char *str, int bytes_read)
+static int	check_if_endline(char *str)
 {
 	size_t	i;
 
@@ -56,8 +56,6 @@ static int	check_if_endline(char *str, int bytes_read)
 			return (1);
 		i++;
 	}
-	if (i == BUFFER_SIZE && (int)i != bytes_read)
-		return (1);
 	return (0);
 }
 
@@ -69,17 +67,9 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	printf("%s", "Erreur 1");
 	complete_line = ft_strdup(buffer);
-	printf("%s", "Erreur 2");
 	bytes_read = 1;
-	if (check_if_endline(complete_line, bytes_read) == 1)
-	{
-		complete_line = trim_to_the_line(complete_line);
-		ft_strchrcpy(buffer, '\n');
-		return (complete_line);
-	}
-	while (check_if_endline(complete_line, bytes_read) == 0)
+	while (check_if_endline(complete_line) == 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
