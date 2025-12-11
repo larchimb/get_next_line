@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 14:41:23 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 14:48:59 by larchimb         ###   ########.fr       */
+/*   Created: 2025/12/11 14:59:01 by larchimb          #+#    #+#             */
+/*   Updated: 2025/12/11 14:59:09 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strchrcpy(char *s, int c)
 {
