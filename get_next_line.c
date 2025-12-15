@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:38:36 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 14:21:48 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/15 10:18:11 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	check_if_endline(char *str)
 	size_t	i;
 
 	i = 0;
-	if (!str || !str[0])
+	if (!str)
 		return (0);
 	while (str[i])
 	{
@@ -95,26 +95,3 @@ char	*get_next_line(int fd)
 	ft_strchrcpy(buffer, '\n');
 	return (complete_line);
 }
-/* #include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-char	*get_next_line(int fd);
-
-int	main(void)
-{
-	int		fd;
-	char	*str;
-
-	fd = open("test.txt", O_RDONLY);
-	str = get_next_line(fd);
-	while (str)
-	{
-		printf("%s", str);
-		free(str);
-		str = NULL;
-		str = get_next_line(fd);
-	}
-	close(fd);
-} */

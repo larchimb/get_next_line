@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:38:36 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 15:57:27 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/15 10:20:52 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	check_if_endline(char *str)
 	size_t	i;
 
 	i = 0;
-	if (!str || !str[0])
+	if (!str)
 		return (0);
 	while (str[i])
 	{

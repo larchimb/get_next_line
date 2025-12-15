@@ -6,7 +6,7 @@
 /*   By: larchimb <larchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:41:23 by larchimb          #+#    #+#             */
-/*   Updated: 2025/12/11 15:21:45 by larchimb         ###   ########.fr       */
+/*   Updated: 2025/12/15 10:26:49 by larchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strchrcpy(char *s, int c)
 
 	i = 0;
 	j = 0;
-	while (s[i] && s[i] != (char)c)
+	while (s[i] && s[i] != c)
 		i++;
 	if (s[i])
 	{
@@ -37,7 +37,7 @@ char	*ft_strdup(char *s)
 	int		i;
 
 	i = 0;
-	if (!s || !s[0])
+	if (!s)
 		return (NULL);
 	ptr = malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!ptr)
@@ -84,9 +84,9 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	if (!str || !str[i])
+	if (!str)
 		return (0);
-	while (str && str[i])
+	while (str[i])
 		i++;
 	return (i);
 }
